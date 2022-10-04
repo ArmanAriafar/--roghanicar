@@ -1,12 +1,11 @@
 //! Required
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string } from "yup";
-import Head from "next/head";
-import { useState } from "react";
 
 //! Icons
-import { BsPhoneVibrateFill, BsChatLeftTextFill } from "react-icons/bs";
-import Link from "next/link";
+import { BsPhoneVibrateFill } from "react-icons/bs";
+import { BiMessageDetail } from "react-icons/bi";
 
 //! Formik
 const INITIAL_PHONE = {
@@ -19,9 +18,6 @@ const VALIDATE_PHONE = object().shape({
         .max(10, "خطا: شماره وارد شده اشتباه است")
         .required("خطا: لطفا شماره خود را وارد کنید"),
 });
-
-//! Code
-
 const INITIAL_CODE = {
     valid_code: "",
 };
@@ -34,43 +30,49 @@ const VALIDATE_CODE = object().shape({
 });
 
 //! Comp
-const Login = () => {
-    const [active, setActive] = useState(false);
-    //Phone
+const LoginPage = () => {
+    //* Submit Phone
     const SUBMIT_PHONE = (values) => {
-        console.log(values.phone_number);
-        setActive(true);
+        console.log(values.phoneNumber);
+        setActive((prev) => !prev);
     };
-    //Code
     const SUBMIT_CODE = (values) => {
         console.log(values.valid_code);
     };
+    const [active, setActive] = useState(false);
     return (
-        <>
-            <Head>
-                <title>ورود به اکانت | پروفایل، صفحه کاربری | روغنی کار</title>
-            </Head>
-            <main className="bg-linear-background flex min-h-screen min-w-full flex-col items-center justify-start px-4 pt-5 sm:pt-28">
-                <p className="mb-5 text-xl font-extralight text-white sm:text-3xl">
-                    ورود به <span className="font-normal">سادگــــــــی</span> یک{" "}
-                    <span className="font-normal">شمـــاره موبایــــل</span>
-                </p>
-                <article className="login-form-neu w-full max-w-sm overflow-hidden rounded-3xl bg-white sm:max-w-[32.5rem]">
-                    {/* Phone Form */}
-                    <hgroup
-                        className="
-                        grid w-full grid-cols-2 items-center justify-items-center 
-                        bg-white py-3 shadow-xl shadow-black/25"
-                    >
-                        <h1 className={!active ? "font-extrabold text-orange-500" : "font-bold text-stone-400"}>
-                            1. شماره موبایل من
+        <main dir="ltr" className="grid min-h-screen w-full grid-cols-6 items-center justify-items-center">
+            <section className="col-span-2 h-full w-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    src="/static/images/برندها-تولیدکنندها.webp"
+                    alt="برندها-تولیدکنندها"
+                    className="max-h-screen h-full w-full object-cover"
+                />
+            </section>
+            <section
+                className="login-form-box-shadow col-span-4 flex h-full w-full items-center justify-center bg-stone-50"
+                dir="rtl"
+            >
+                <article className="w-full max-w-md rounded-3xl border border-orange-500">
+                    <hgroup className="grid w-full grid-cols-2 items-center justify-items-center rounded-t-3xl bg-white py-4 shadow-xl shadow-black/20">
+                        <h1
+                            className={
+                                !active ? "text-sm font-black text-orange-500" : "text-sm font-bold text-stone-400"
+                            }
+                        >
+                            1. ورود شماره موبایل
                         </h1>
-                        <h2 className={active ? "font-extrabold text-orange-500" : "font-bold text-stone-400"}>
-                            2. کد پیامک شده
+                        <h2
+                            className={
+                                active ? "text-sm font-black text-orange-500" : "text-sm font-bold text-stone-400"
+                            }
+                        >
+                            2. تایید کد پیامک شده
                         </h2>
                     </hgroup>
+                    {/* Phone Form */}
                     {!active && (
-                        // phone_number
                         <Formik
                             initialValues={INITIAL_PHONE}
                             validationSchema={VALIDATE_PHONE}
@@ -79,43 +81,44 @@ const Login = () => {
                         >
                             {(formProps) => {
                                 return (
-                                    <Form className="mt-4 flex flex-col items-center justify-center p-4">
+                                    <Form className="flex flex-col items-center justify-start p-4">
+                                        <label htmlFor="phone_number" className="mt-4 text-sm font-bold text-stone-600">
+                                            لطفا شماره موبایل خود را وارد نمایید:
+                                        </label>
                                         <section
                                             className="
-                                            grid w-full grid-cols-[90%_10%] items-center justify-items-center 
-                                            rounded-full bg-stone-100 py-1.5 px-2"
+                                            mt-8 grid w-full grid-cols-[90%_10%] items-center justify-items-center rounded-full
+                                            bg-stone-100 px-2 py-2.5"
                                         >
                                             <Field
                                                 name="phone_number"
+                                                type="number"
                                                 id="phone_number"
                                                 placeholder="مثلا: 6789 345 0912"
-                                                type="number"
-                                                dir="ltr"
                                                 className="
-                                                border-none bg-transparent text-center font-bold tracking-[2px] 
-                                                text-stone-500 outline-none placeholder:text-stone-300"
+                                                w-full border-none bg-transparent text-center text-sm font-bold 
+                                                tracking-[2px] text-stone-400 outline-none placeholder:text-stone-400"
                                             />
-                                            <BsPhoneVibrateFill className="text-xl text-stone-300" />
+                                            <BsPhoneVibrateFill className="rotate-12 text-2xl text-stone-400" />
                                         </section>
-                                        <p className="mt-2">
+                                        <p className="mt-4 text-sm font-bold text-red-500 underline underline-offset-4">
                                             <ErrorMessage name="phone_number" />
                                         </p>
                                         <button
                                             type="submit"
-                                            disabled={!formProps.isValid || formProps.isSubmitting}
+                                            disabled={formProps.isSubmitting || !formProps.isValid}
                                             className="
-                                            mt-2 w-full rounded-full bg-orange-100 py-1.5 font-bold text-orange-500 
-                                            disabled:bg-stone-100 disabled:text-stone-300 sm:w-1/2 sm:self-end"
+                                            login-btn mt-4 mb-2 w-full rounded-full py-2 text-sm font-bold"
                                         >
-                                            ارسال کد تایید
+                                            ارسالد کد تایید
                                         </button>
                                     </Form>
                                 );
                             }}
                         </Formik>
                     )}
+                    {/* validate code */}
                     {active && (
-                        // valid_code
                         <Formik
                             initialValues={INITIAL_CODE}
                             validationSchema={VALIDATE_CODE}
@@ -124,33 +127,34 @@ const Login = () => {
                         >
                             {(formProps) => {
                                 return (
-                                    <Form className="mt-4 flex flex-col items-center justify-center p-4">
+                                    <Form className="flex flex-col items-center justify-start p-4">
+                                        <label htmlFor="valid_code" className="mt-4 text-sm font-bold text-stone-600">
+                                            لطفا کد پیامک شده را وارد کنید:
+                                        </label>
                                         <section
                                             className="
-                                            grid w-full grid-cols-[90%_10%] items-center justify-items-center 
-                                            rounded-full bg-stone-100 py-1.5 px-2"
+                                            mt-8 grid w-full grid-cols-[90%_10%] items-center justify-items-center rounded-full
+                                            bg-stone-100 px-2 py-2.5"
                                         >
                                             <Field
                                                 name="valid_code"
+                                                type="number"
                                                 id="valid_code"
                                                 placeholder="1234"
-                                                type="number"
-                                                dir="ltr"
                                                 className="
-                                                border-none bg-transparent text-center font-bold tracking-[5px] 
-                                                text-stone-500 outline-none placeholder:text-stone-300"
+                                                w-full border-none bg-transparent text-center text-sm font-bold 
+                                                tracking-[20px] text-stone-400 outline-none placeholder:text-stone-400"
                                             />
-                                            <BsChatLeftTextFill className="text-xl text-stone-300" />
+                                            <BiMessageDetail className="text-2xl text-stone-400" />
                                         </section>
-                                        <p className="mt-2">
+                                        <p className="mt-4 text-sm font-bold text-red-500 underline underline-offset-4">
                                             <ErrorMessage name="valid_code" />
                                         </p>
                                         <button
                                             type="submit"
-                                            disabled={!formProps.isValid || formProps.isSubmitting}
+                                            disabled={formProps.isSubmitting || !formProps.isValid}
                                             className="
-                                            mt-2 w-full rounded-full bg-orange-100 py-1.5 font-bold text-orange-500 
-                                            disabled:bg-stone-100 disabled:text-stone-300 sm:w-1/2 sm:self-end"
+                                            login-btn mt-4 mb-2 w-full rounded-full py-2 text-sm font-bold"
                                         >
                                             ورود به سایت
                                         </button>
@@ -160,17 +164,9 @@ const Login = () => {
                         </Formik>
                     )}
                 </article>
-                <p className="mt-8 leading-7 w-full max-w-sm px-4 text-sm font-normal text-white sm:max-w-md">
-                    <span className="text-lg font-bold">توجه:</span>
-                    <br /> با ورود به سایت، تایید میکنم تمامی{" "}
-                    <Link href="قوانین-سایت">
-                        <a className="italic underline">قوانین و شرایط</a>
-                    </Link>{" "}
-                    استفاده از سایت را مطالعه و با آن موافقم.
-                </p>
-            </main>
-        </>
+            </section>
+        </main>
     );
 };
 
-export default Login;
+export default LoginPage;

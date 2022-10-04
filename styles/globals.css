@@ -6,9 +6,21 @@
     background: linear-gradient(290deg, #ff4800 0%, #ff6d00 100%);
 }
 
-.login-form-neu {
-    border-radius: 30px;
-    box-shadow: 15px 15px 20px #c2410c, -15px -15px 20px #fe7f25;
+.login-form-box-shadow {
+    box-shadow: -50px 0px 60px rgba(0, 0, 0, 0.3);
+}
+
+.login-btn {
+    background: linear-gradient(270deg, #ff4800 0%, #f97316 100%);
+    color: #ffffff;
+    box-shadow: 0 15px 20px rgba(255, 72, 0, 0.5);
+    transition: 0.5s ease-in-out;
+}
+
+.login-btn:disabled {
+    background: linear-gradient(270deg, #e1e1e1 0%, rgba(245, 245, 244, 0) 100%);
+    box-shadow: none;
+    color: #a8a29e;
 }
 
 /* remove number input */
