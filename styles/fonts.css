@@ -1,0 +1,40 @@
+@font-face {
+    font-family: "IRANYekan";
+    font-weight: 500;
+    src: url("../public/static/fonts/iranyekanwebmediumfanum.woff2") format("woff2");
+}
+@font-face {
+    font-family: "IRANYekan";
+    font-weight: 900;
+    src: url("../public/static/fonts/iranyekanwebblackfanum.woff2") format("woff2");
+}
+@font-face {
+    font-family: "IRANYekan";
+    font-weight: 800;
+    src: url("../public/static/fonts/iranyekanwebextraboldfanum.woff2") format("woff2");
+}
+@font-face {
+    font-family: "IRANYekan";
+    font-weight: 700;
+    src: url("../public/static/fonts/iranyekanwebboldfanum.woff2") format("woff2");
+}
+@font-face {
+    font-family: "IRANYekan";
+    font-weight: 400;
+    src: url("../public/static/fonts/iranyekanwebregularfanum.woff2") format("woff2");
+}
+@font-face {
+    font-family: "IRANYekan";
+    font-weight: 300;
+    src: url("../public/static/fonts/iranyekanweblightfanum.woff2") format("woff2");
+}
+@font-face {
+    font-family: "IRANYekan";
+    font-weight: 200;
+    src: url("../public/static/fonts/iranyekanwebthinfanum.woff2") format("woff2");
+}
+@font-face {
+    font-family: "IRANYekan";
+    font-weight: 100;
+    src: url("../public/static/fonts/iranyekanwebextrablackfanum.woff2") format("woff2");
+}
